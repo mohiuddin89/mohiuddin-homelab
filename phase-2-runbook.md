@@ -1,4 +1,4 @@
-# Phase 2 — MetalLB, ingress-nginx, and Storage
+#  docs/runbooks/phase-2.md — MetalLB, ingress-nginx, and Storage
 
 **Status:** ✅ Complete  
 **Date:** 2026-05-04  
