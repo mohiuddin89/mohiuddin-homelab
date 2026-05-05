@@ -1,4 +1,4 @@
-# docs/runbooks/phase-1.md — kubeadm Cluster Bootstrap + etcd Backup
+#phase-1.md → docs/runbooks/phase-1.md — kubeadm Cluster Bootstrap + etcd Backup
 
 **Status:** ✅ Complete  
 **Date:** 2026-05-04  
