@@ -1,4 +1,4 @@
-# Phase 4 — Security Baseline
+#docs/runbooks/phase-4.md — Security Baseline
 
 **Status:** ✅ Complete  
 **Date:** 2026-05-05  
