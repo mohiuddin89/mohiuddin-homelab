@@ -1,29 +1,32 @@
-# ADR 005 — External Secrets Operator
+# ADR 005 — External Secrets Operator over Sealed Secrets
 
 ## Status
 Accepted
 
 ## Context
-Project requires secrets management that is safe to use with Git
-and supports multiple backends as the project grows.
+Project requires secrets management that is safe to commit to Git
+and supports multiple backends as the project evolves from homelab
+to AWS cloud (Phase 15).
 
 ## Decision
 Use **External Secrets Operator (ESO)** for secrets management.
 
 ## Reasons
-- ESO supports multiple backends: local Kubernetes store (Phase 7),
-  AWS SSM Parameter Store (Phase 15) — same app config, backend changes
+- ESO supports multiple backends without changing application config:
+  Phase 7 = local Kubernetes secret store,
+  Phase 15 = AWS SSM Parameter Store
 - No plaintext secrets in Git — ESO fetches from backend at runtime
-- Clean migration path: homelab uses local backend, EKS phase uses AWS SSM
-- Production-standard pattern: secrets live in a secret store, not in Git
 - Automatic secret rotation when backend value changes
+- Production-standard pattern used in real cloud-native teams
+- Clean migration: same ExternalSecret CRD, only SecretStore changes
 
 ## Consequences
-- Phase 7: local Kubernetes secret store backend
-- Phase 15: AWS SSM Parameter Store backend (no app changes required)
-- ESO controller running in cluster
-- SecretStore and ExternalSecret CRDs must be created per namespace
+- Phase 7: local Kubernetes secret store backend (no external dependency)
+- Phase 15: AWS SSM Parameter Store (no app changes required)
+- ESO controller must be running in cluster
+- SecretStore and ExternalSecret CRDs created per namespace
 
 ## Alternatives Rejected
-- **Sealed Secrets** — no multi-backend path, manual re-sealing required on rotation
-- **Plaintext in Git** — never acceptable, security violation
+- **Sealed Secrets** — no multi-backend path, manual re-sealing on
+  key rotation, does not integrate with AWS SSM
+- **Plaintext in Git** — never acceptable
